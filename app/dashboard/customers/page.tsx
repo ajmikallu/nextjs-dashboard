@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default async function Page({
   searchParams,
 }: {
-  searchParams?: { query?: string };
+  searchParams?: Promise<{ query?: string }>;
 }) {
   const params = await searchParams;
   const query = params?.query || '';
