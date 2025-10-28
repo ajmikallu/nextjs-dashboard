@@ -1,7 +1,6 @@
 import { Metadata } from 'next';
 import Table from '@/app/ui/customers/table';
 import { lusitana } from '@/app/ui/fonts';
-import { CreateCustomer } from '@/app/ui/customers/buttons';
 import { fetchFilteredCustomers } from '@/app/lib/data';
 
 
