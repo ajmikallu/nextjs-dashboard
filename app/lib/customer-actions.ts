@@ -71,25 +71,18 @@ export async function updateCustomer(
   id: string,
   prevState: State,
   formData: FormData,
-) {
-  console.log('hello');
-  
+) {  
   const validatedFields = UpdateCustomer.safeParse({
     name: formData.get('name'),
     email: formData.get('email'),
     imageUrl: formData.get('image_url'),
-  });
-
-  console.log(validatedFields);
-  
-
+  });  
   if (!validatedFields.success) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
       message: 'Missing Fields. Failed to Update Invoice.',
     };
   }
-
   const { name, email, imageUrl } = validatedFields.data;
   try {
     await sql`

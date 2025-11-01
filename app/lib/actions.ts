@@ -111,9 +111,13 @@ export async function updateInvoice(
 }
 
 export async function deleteInvoice(id: string) {
-  throw new Error('Failed to Delete Invoice');
-  await sql`DELETE FROM invoices WHERE id = ${id}`;
-  revalidatePath('/dashboard/invoices');
+  try {
+    await sql`DELETE FROM invoices WHERE id = ${id}`;
+    revalidatePath('/dashboard/invoices');
+    redirect('/dashboard/invoices');
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 export async function authenticate(
@@ -121,11 +125,8 @@ export async function authenticate(
   formData: FormData,
 ) {
   try {
-    
     await signIn('credentials', formData);
   } catch (error) {
-    // console.log(formData);
-
     if (error instanceof AuthError) {
       switch (error.type) {
         case 'CredentialsSignin':
