@@ -6,6 +6,7 @@ import {
   InvoicesTable,
   LatestInvoiceRaw,
   Revenue,
+  CustomerEditForm,
 } from './definitions';
 import { formatCurrency } from './utils';
 
@@ -237,5 +238,24 @@ export async function fetchFilteredCustomers(query: string, currentPage?: number
   } catch (err) {
     console.error('Database Error:', err);
     throw new Error('Failed to fetch customer table.');
+  }
+}
+
+export async function fetchCustomerById(id: string) {
+  try {
+    const data = await sql<CustomerEditForm[]>`
+      SELECT
+        id,
+        name,
+        email,
+        image_url
+      FROM customers
+      WHERE id = ${id};
+    `;
+
+    return data[0];
+  } catch (err) {
+    console.error('Database Error:', err);
+    throw new Error('Failed to fetch customer.');
   }
 }
