@@ -22,7 +22,6 @@ export default async function Page({
   const query = params?.query || '';
   const currentPage = Number(params?.page) || 1;
   const totalPages = await fetchCustomersPages(query);
-  // const customers = await fetchFilteredCustomers(query, currentPage);
   return (
     <div className="w-full">
       <div className="w-full">
