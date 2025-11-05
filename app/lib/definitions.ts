@@ -7,6 +7,8 @@ export type User = {
   name: string;
   email: string;
   password: string;
+  role_id: string;
+  role?: Role; // Optional: include role details
 };
 
 export type Customer = {
@@ -93,3 +95,18 @@ export type CustomerEditForm = {
   email: string;
   image_url: string;
 };
+
+export type Role = {
+  id: string;
+  name: 'admin' | 'manager' | 'editor' | 'viewer';
+  description: string;
+};
+
+export type Permission = {
+  id: string;
+  name: string;
+  resource: string;
+  action: 'create' | 'read' | 'update' | 'delete';
+  description: string;
+};
+

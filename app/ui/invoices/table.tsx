@@ -3,6 +3,8 @@ import { UpdateInvoice, DeleteInvoice } from '@/app/ui/invoices/buttons';
 import InvoiceStatus from '@/app/ui/invoices/status';
 import { formatDateToLocal, formatCurrency } from '@/app/lib/utils';
 import { fetchFilteredInvoices } from '@/app/lib/data';
+import { can } from '@/app/lib/auth-helpers';
+
 
 export default async function InvoicesTable({
   query,
@@ -11,6 +13,8 @@ export default async function InvoicesTable({
   query: string;
   currentPage: number;
 }) {
+  const canDelete = await can('invoices', 'delete');
+
   const invoices = await fetchFilteredInvoices(query, currentPage);
 
   return (
@@ -48,7 +52,7 @@ export default async function InvoicesTable({
                   </div>
                   <div className="flex justify-end gap-2">
                     <UpdateInvoice id={invoice.id} />
-                    <DeleteInvoice id={invoice.id} />
+                    <DeleteInvoice id={invoice.id} canDelete={canDelete} />
                   </div>
                 </div>
               </div>
@@ -110,7 +114,7 @@ export default async function InvoicesTable({
                   <td className="whitespace-nowrap py-3 pl-6 pr-3">
                     <div className="flex justify-end gap-3">
                       <UpdateInvoice id={invoice.id} />
-                      <DeleteInvoice id={invoice.id} />
+                      <DeleteInvoice id={invoice.id} canDelete={canDelete} />
                     </div>
                   </td>
                 </tr>
