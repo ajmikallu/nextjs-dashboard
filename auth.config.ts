@@ -1,27 +1,21 @@
-import Credentials from "next-auth/providers/credentials";
-import type { NextAuthConfig } from "next-auth";
+import type { NextAuthConfig } from 'next-auth';
 
-export const authConfig: NextAuthConfig = {
-  providers: [
-    Credentials({
-      name: "Credentials",
-      credentials: {
-        email: { label: "Email", type: "text" },
-        password: { label: "Password", type: "password" },
-      },
-      async authorize(credentials) {
-        if (
-          credentials?.email === "user@nextmail.com" &&
-          credentials?.password === "123456"
-        ) {
-          return { id: "1", name: "Demo User", email: "user@nextmail.com" };
-        }
-        return null;
-      },
-    }),
-  ],
-  secret: process.env.AUTH_SECRET || "secret-key",
+export const authConfig = {
   pages: {
-    signIn: "/login",
+    signIn: '/login',
   },
-};
+  callbacks: {
+    authorized({ auth, request: { nextUrl } }) {
+      const isLoggedIn = !!auth?.user;
+      const isOnDashboard = nextUrl.pathname.startsWith('/dashboard');
+      if (isOnDashboard) {
+        if (isLoggedIn) return true;
+        return false; // Redirect unauthenticated users to login page
+      } else if (isLoggedIn) {
+        return Response.redirect(new URL('/dashboard', nextUrl));
+      }
+      return true;
+    },
+  },
+  providers: [], // Add providers with an empty array for now
+} satisfies NextAuthConfig;
