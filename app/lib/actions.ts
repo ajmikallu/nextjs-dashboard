@@ -5,6 +5,7 @@ import { redirect } from 'next/navigation';
 import postgres from 'postgres';
 import { signIn } from '@/auth';
 import { AuthError } from 'next-auth';
+import { requirePermission } from './auth-helpers';
 
 const FormSchema = z.object({
   id: z.string(),
@@ -36,6 +37,7 @@ export type State = {
 };
 
 export async function createInvoice(prevState: State, formData: FormData) {
+  await requirePermission('invoices.create');
   // Validate form using Zod
   const validatedFields = CreateInvoice.safeParse({
     customerId: formData.get('customerId'),
@@ -111,6 +113,7 @@ export async function updateInvoice(
 }
 
 export async function deleteInvoice(id: string) {
+  await requirePermission('invoices.delete');
   try {
     await sql`DELETE FROM invoices WHERE id = ${id}`;
     revalidatePath('/dashboard/invoices');
