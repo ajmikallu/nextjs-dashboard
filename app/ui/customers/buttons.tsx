@@ -20,7 +20,9 @@ export function UpdateCustomer({ id }: { id: string }) {
       href={`/dashboard/customers/${id}/edit`}
       className="rounded-md border p-2 hover:bg-gray-100"
     >
-      <PencilIcon className="w-5" />
+      <PencilIcon className="w-5" aria-hidden="true"/>
+      <span className="sr-only">Edit Invoice</span>
+
     </Link>
   );
 }
