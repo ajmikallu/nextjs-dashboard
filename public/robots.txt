@@ -1,0 +1,13 @@
+# Allow all search engines to crawl public pages
+User-agent: *
+Allow: /
+
+# Block private/protected pages
+Disallow: /dashboard/
+Disallow: /api/
+
+# Block authentication pages (no need to index these)
+Disallow: /login
+
+# Sitemap location
+Sitemap: https://yourdomain.com/sitemap.xml
