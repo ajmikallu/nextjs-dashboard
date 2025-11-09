@@ -7,28 +7,59 @@ import Image from 'next/image'
 
 export default function Page() {
   return (
-    <main className="flex min-h-screen flex-col p-6">
-      <div className="flex h-20 shrink-0 items-end rounded-lg bg-blue-500 p-4 md:h-52">
-        <AcmeLogo />
-      </div>
-      <div className="mt-4 flex grow flex-col gap-4 md:flex-row">
-        <div className="flex flex-col justify-center gap-6 rounded-lg bg-gray-50 px-6 py-10 md:w-2/5 md:px-20"  >
-          <div
-            className={styles.shape} />
-          <p className={` ${lusitana.className} antialiased text-xl text-gray-800 md:text-3xl md:leading-normal`}>
-            <strong>Welcome to Acme.</strong> This is the example for the{' '}
-            <a href="https://nextjs.org/learn/" className="text-blue-500">
-              Next.js Learn Course
-            </a>
-            , brought to you by Vercel.
+    <main className="flex-grow flex flex-col">
+      <div className="flex grow flex-col gap-4 md:flex-row">
+        <div className="flex flex-col justify-center gap-6 rounded-lg bg-gray-50 px-6 py-10 md:w-2/5 md:px-20">
+          <div className="absolute inset-0 -z-10 rounded-lg bg-gradient-to-br from-indigo-100 via-white to-indigo-50 opacity-70"></div>
+
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
+            Welcome to <span className="text-indigo-600">NextVision</span>
+          </h1>
+
+          <p className="text-gray-600 text-lg leading-relaxed">
+            NextVision empowers developers and creators to build modern, high-performance websites with ease.
+            Explore our tools, learn cutting-edge web technologies, and take your projects to the next level.
           </p>
-          <Link
-            href="/login"
-            className="flex items-center gap-5 self-start rounded-lg bg-blue-500 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-blue-400 md:text-base"
-          >
-            <span>Log in</span> <ArrowRightIcon className="w-5 md:w-6" />
-          </Link>
+
+          <div className="grid gap-3">
+            <div className="flex items-center gap-2 text-gray-700">
+              <svg className="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" strokeWidth="2"
+                viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+              Lightning-fast builds powered by Next.js
+            </div>
+            <div className="flex items-center gap-2 text-gray-700">
+              <svg className="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" strokeWidth="2"
+                viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+              Seamless deployment on Vercel
+            </div>
+            <div className="flex items-center gap-2 text-gray-700">
+              <svg className="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" strokeWidth="2"
+                viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+              Optimized for SEO and accessibility
+            </div>
+          </div>
+
+          <div className="flex gap-4 mt-4">
+            <a
+              href="/about"
+              className="flex items-center gap-2 rounded-lg bg-indigo-600 px-5 py-3 text-white font-medium transition-colors hover:bg-indigo-500"
+            >
+              Get Started
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
+                stroke="currentColor" className="w-5 h-5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+              </svg>
+            </a>
+
+            <a
+              href="/blog"
+              className="flex items-center gap-2 rounded-lg border border-indigo-600 px-5 py-3 text-indigo-600 font-medium transition-colors hover:bg-indigo-50"
+            >
+              Learn More
+            </a>
+          </div>
         </div>
+
         <div className="flex items-center justify-center p-6 md:w-3/5 md:px-28 md:py-12">
           <Image
             src="/hero-desktop.png"

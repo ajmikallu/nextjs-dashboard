@@ -3,6 +3,10 @@ import { inter } from '@/app/ui/fonts';
 import { Metadata } from 'next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Analytics } from "@vercel/analytics/next"
+import NavLinks from '@/app/ui/nav-links';
+import AcmeLogo from '@/app/ui/acme-logo';
+
+
 
 export const metadata: Metadata = {
   title: {
@@ -20,9 +24,18 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} antialiased`}>{children}
-        <SpeedInsights />
-         <Analytics />
+      <body className={`${inter.className} antialiased`}>
+        <div className="flex min-h-screen flex-col overflow-hidden">
+
+          <div className="flex px-3 py-4 md:px-2 gap-4 bg-blue-500">
+            <AcmeLogo />
+
+            <NavLinks />
+          </div>
+          {children}
+          <SpeedInsights />
+          <Analytics />
+        </div>
       </body>
     </html>
   );
