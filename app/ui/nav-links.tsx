@@ -13,7 +13,7 @@ import clsx from 'clsx';
 const links = [
   { name: 'Home', href: '/', icon: HomeIcon },
   { name: 'About', href: '/about', icon: UserGroupIcon },
-  { name: 'Blog', href: '/blog', icon: NewspaperIcon },
+  { name: 'Blog', href: '/blogs', icon: NewspaperIcon },
 ];
 
 export default function NavLinks() {

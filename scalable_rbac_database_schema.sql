@@ -231,3 +231,17 @@ CREATE INDEX idx_role_permissions_role_id ON role_permissions(role_id);
 CREATE INDEX idx_role_permissions_permission_id ON role_permissions(permission_id);
 CREATE INDEX idx_permissions_resource ON permissions(resource);
 CREATE INDEX idx_permissions_action ON permissions(action);
+
+-- ============================================
+-- 9. POSTS TABLE
+-- ===========================================
+create table posts (
+  id bigint primary key generated always as identity,
+  title text not null,
+  content text not null,
+  excerpt text,
+  author text,
+  created_at timestamp default now(),
+  updated_at timestamp default now(),
+  published boolean default false
+);
