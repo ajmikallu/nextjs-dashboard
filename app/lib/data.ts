@@ -7,6 +7,7 @@ import {
   LatestInvoiceRaw,
   Revenue,
   CustomerEditForm,
+  Post,
 } from './definitions';
 import { formatCurrency } from './utils';
 
@@ -247,5 +248,97 @@ export async function fetchCustomerById(id: string) {
   } catch (err) {
     console.error('Database Error:', err);
     throw new Error('Failed to fetch customer.');
+  }
+}
+
+export async function fetchPosts() {
+  try {
+    const posts = await sql<Post[]>`
+      SELECT
+        id,
+        title,
+        excerpt,
+        author,
+        published,
+        created_at,
+        updated_at
+      FROM posts
+      ORDER BY created_at DESC
+    `;
+    return posts;
+  } catch (err) {
+    console.error('Database Error:', err);
+    throw new Error('Failed to fetch posts.');
+  }
+}
+
+export async function fetchBlogsPages(query: string) {
+  try {
+    const like = `%${query}%`;
+    const data = await sql<{ count: string }[]>`
+      SELECT COUNT(*)::text AS count
+      FROM posts
+      WHERE
+        title ILIKE ${like} OR
+        excerpt ILIKE ${like} OR
+        author ILIKE ${like}
+    `;
+
+    const total = Number(data[0]?.count ?? 0);
+    const totalPages = Math.ceil(total / ITEMS_PER_PAGE);
+    return totalPages;
+  } catch (err) {
+    console.error('Database Error:', err);
+    throw new Error('Failed to fetch total number of blogs.');
+  }
+}
+
+export async function fetchFilteredBlogs(query: string, currentPage?: number) {
+  const offset = currentPage ? (currentPage - 1) * ITEMS_PER_PAGE : 0;
+  try {
+    const posts = await sql<Post[]>`
+      SELECT
+        id,
+        title,
+        excerpt,
+        author,
+        published,
+        created_at,
+        updated_at
+      FROM posts
+      WHERE
+        title ILIKE ${`%${query}%`} OR
+        excerpt ILIKE ${`%${query}%`} OR
+        author ILIKE ${`%${query}%`}
+      ORDER BY created_at DESC
+      LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
+    `;
+    return posts;
+  } catch (err) {
+    console.error('Database Error:', err);
+    throw new Error('Failed to fetch posts.');
+  }
+}
+
+export async function fetchBlogById(id: string) {
+  try {
+    const data = await sql<Post[]>`
+      SELECT
+        id,
+        title,
+        content,
+        excerpt,
+        author,
+        published,
+        created_at,
+        updated_at
+      FROM posts
+      WHERE id = ${id}
+      LIMIT 1
+    `;
+    return data[0];
+  } catch (err) {
+    console.error('Database Error:', err);
+    throw new Error('Failed to fetch blog post.');
   }
 }
