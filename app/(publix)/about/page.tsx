@@ -17,14 +17,14 @@ export default function AboutPage() {
 
         <div className="grid md:grid-cols-3 gap-8 text-left">
           <div className="rounded-xl bg-white shadow-md p-6">
-            <h3 className="text-xl font-semibold text-indigo-600 mb-2">Our Vision</h3>
+            <h2 className="text-xl font-semibold text-indigo-600 mb-2">Our Vision</h2>
             <p className="text-gray-600">
               Empower every developer to create lightning-fast, SEO-ready websites without friction.
             </p>
           </div>
 
           <div className="rounded-xl bg-white shadow-md p-6">
-            <h3 className="text-xl font-semibold text-indigo-600 mb-2">Our Approach</h3>
+            <h2 className="text-xl font-semibold text-indigo-600 mb-2">Our Approach</h2>
             <p className="text-gray-600">
               We combine real-world examples, structured learning, and simple, reusable code to help you grow
               from beginner to pro.
@@ -32,7 +32,7 @@ export default function AboutPage() {
           </div>
 
           <div className="rounded-xl bg-white shadow-md p-6">
-            <h3 className="text-xl font-semibold text-indigo-600 mb-2">Our Tools</h3>
+            <h2 className="text-xl font-semibold text-indigo-600 mb-2">Our Tools</h2>
             <p className="text-gray-600">
               Built with <strong>Next.js App Router</strong>, <strong>Tailwind CSS</strong>, and <strong>Vercel</strong> —
               everything you need to build, deploy, and optimize your next big idea.
