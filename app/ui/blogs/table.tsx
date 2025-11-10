@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { DeleteBlog, UpdateBlog } from '@/app/ui/blogs/buttons';
 import { fetchFilteredBlogs } from '@/app/lib/data';
 

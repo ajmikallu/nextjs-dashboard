@@ -1,9 +1,5 @@
-import AcmeLogo from '@/app/ui/acme-logo';
-import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
-import styles from '@/app/ui/home.module.css';
-import { lusitana } from '@/app/ui/fonts';
-import Image from 'next/image'
+import Image from 'next/image';
 
 export default function Page() {
   return (
@@ -39,24 +35,25 @@ export default function Page() {
             </div>
           </div>
 
-          <div className="flex gap-4 mt-4">
-            <a
-              href="/about"
-              className="flex items-center gap-2 rounded-lg bg-indigo-600 px-5 py-3 text-white font-medium transition-colors hover:bg-indigo-500"
+          <div className="flex gap-4">
+            <Link
+              href="/blogs"
+              className="inline-flex items-center gap-2 rounded-lg bg-indigo-600 px-6 py-3 text-white font-medium transition-colors hover:bg-indigo-500"
             >
-              Get Started
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
-                stroke="currentColor" className="w-5 h-5">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+              Explore Blogs
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                strokeWidth="1.5" stroke="currentColor" className="w-5 h-5">
+                <path strokeLinecap="round" strokeLinejoin="round"
+                  d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
               </svg>
-            </a>
+            </Link>
 
-            <a
-              href="/blog"
-              className="flex items-center gap-2 rounded-lg border border-indigo-600 px-5 py-3 text-indigo-600 font-medium transition-colors hover:bg-indigo-50"
+            <Link
+              href="/about"
+              className="inline-flex items-center gap-2 rounded-lg border-2 border-gray-300 px-6 py-3 text-gray-900 font-medium transition-colors hover:border-gray-400 hover:bg-gray-100"
             >
               Learn More
-            </a>
+            </Link>
           </div>
         </div>
 
