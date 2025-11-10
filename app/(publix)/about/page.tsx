@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export default function AboutPage() {
   return (
     <main className="flex-grow flex flex-col items-center justify-center bg-gray-50 px-6 py-16 md:px-20">
@@ -39,8 +41,8 @@ export default function AboutPage() {
         </div>
 
         <div className="mt-12">
-          <a
-            href="/blog"
+          <Link
+            href="/blogs"
             className="inline-flex items-center gap-2 rounded-lg bg-indigo-600 px-6 py-3 text-white font-medium transition-colors hover:bg-indigo-500"
           >
             Explore the Blog
@@ -49,7 +51,7 @@ export default function AboutPage() {
               <path strokeLinecap="round" strokeLinejoin="round"
                 d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
             </svg>
-          </a>
+          </Link>
         </div>
       </section>
     </main>
