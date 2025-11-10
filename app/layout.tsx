@@ -25,13 +25,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} antialiased`}>
-        <div className="flex min-h-screen flex-col overflow-hidden">
+        <div className="flex min-h-screen flex-col">
 
-          <div className="flex px-3 py-4 md:px-2 gap-4 bg-blue-500">
+          {/* <div className="flex px-3 py-4 md:px-2 gap-4 bg-blue-500">
             <AcmeLogo />
 
             <NavLinks />
-          </div>
+          </div> */}
           {children}
           <SpeedInsights />
           <Analytics />

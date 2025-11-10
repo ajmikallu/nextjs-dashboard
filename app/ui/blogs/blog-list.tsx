@@ -1,19 +1,21 @@
 import { fetchPosts } from '@/app/lib/data';
+import Link from 'next/link';
 
 export default async function BlogList() {
   const posts = await fetchPosts();
 
   return (
     <div className="mt-6">
-      <div className="overflow-x-auto">
+      <div >
         <div className="inline-block min-w-full align-middle">
-          <div className="rounded-md bg-gray-50 p-2 md:pt-0">
+          <div className="rounded-md md:pt-0">
             {/* layout as grid: 1 col (mobile), 2 cols (sm), 3 cols (md+) */}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
               {posts?.map((post) => (
-                <div
+                <Link
                   key={post.id}
-                  className="rounded-md bg-white p-4 h-full"
+                  href={`/blogs/${post.id}`}
+                  className="block rounded-md bg-white p-4 h-full transition-colors hover:bg-gray-50 border border-gray-200"
                 >
                   <div className="flex items-center justify-between border-b pb-4">
                     <div>
@@ -48,7 +50,7 @@ export default async function BlogList() {
                   <div className="pt-4 text-sm text-gray-500">
                     {new Date(post.created_at).toLocaleDateString()}
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           </div>
