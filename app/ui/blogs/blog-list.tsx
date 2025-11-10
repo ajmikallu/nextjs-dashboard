@@ -20,7 +20,7 @@ export default async function BlogList() {
                   <div className="flex items-center justify-between border-b pb-4">
                     <div>
                       <div className="mb-2">
-                        <h3 className="font-medium">{post.title}</h3>
+                        <h2 className="font-medium">{post.title}</h2>
                       </div>
                       <p className="text-sm text-gray-500">
                         {post.excerpt || post.content.substring(0, 100) + '...'}
