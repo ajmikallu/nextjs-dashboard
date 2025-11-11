@@ -85,7 +85,12 @@ docker-compose build
 docker-compose up
 ```
 
-3. Visit:
+3. Seed the database (in another terminal):
+```bash
+docker-compose exec nextjs-app pnpm run seed
+```
+
+4. Visit:
 ```
 http://localhost:3000
 ```
@@ -96,10 +101,16 @@ docker-compose down
 ```
 
 Useful Docker commands:
-- `docker-compose up -d` — start in background
-- `docker-compose logs -f` — follow logs
-- `docker-compose down --remove-orphans` — stop & cleanup
-- `docker-compose build --no-cache` — rebuild image
+
+| Command | Purpose |
+|---|---|
+| `docker-compose up -d` | Start in background |
+| `docker-compose logs -f` | Follow logs in real-time |
+| `docker-compose down --remove-orphans` | Stop & cleanup containers |
+| `docker-compose build --no-cache` | Rebuild image from scratch |
+| `docker-compose exec nextjs-app pnpm run seed` | Run seed script inside container |
+| `docker-compose exec nextjs-app pnpm install <package>` | Install package inside container |
+| `docker-compose restart` | Restart all containers |
 
 ---
 
@@ -136,6 +147,10 @@ Note: Docker files are for local development; Vercel deploys without Docker.
 - Start (production): `pnpm run start`
 - Seed DB (if provided): `pnpm run seed`
 
+**With Docker:**
+- Seed DB: `docker-compose exec nextjs-app pnpm run seed`
+- View logs: `docker-compose logs -f`
+
 ---
 
 ## Troubleshooting
@@ -144,6 +159,7 @@ Note: Docker files are for local development; Vercel deploys without Docker.
 - DB connection errors: verify `.env` values and DB availability.
 - Session missing role: sign out and sign back in; ensure auth callback adds role to session.
 - If Docker containers fail: `docker-compose down --remove-orphans`, rebuild, then `docker-compose up`.
+- Seed fails in Docker: ensure database is fully started before running seed; wait a few seconds after `docker-compose up`.
 
 ---
 
