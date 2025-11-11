@@ -6,7 +6,7 @@ import { lusitana } from '@/app/ui/fonts';
 
 
 export const metadata: Metadata = {
-  title: 'Customers',
+  title: 'Blogs',
 };
 
 export default async function Page() {

@@ -1,0 +1,40 @@
+# Git files
+.git
+.gitignore
+
+# Dependencies
+node_modules
+pnpm-debug.log
+npm-debug.log
+yarn-error.log
+
+# Build outputs
+.next
+dist
+build
+
+# Environment files (don't copy secrets into image!)
+.env
+.env.local
+.env.*.local
+
+# IDEs
+.vscode
+.idea
+*.swp
+*.swo
+*.sublime-workspace
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Testing
+coverage
+.nyc_output
+jest.config.js
+
+# Docker
+Dockerfile
+docker-compose.yml
+.dockerignore

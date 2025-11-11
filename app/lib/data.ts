@@ -268,7 +268,7 @@ export async function fetchPosts() {
     return posts;
   } catch (err) {
     console.error('Database Error:', err);
-    throw new Error('Failed to fetch posts.');
+    return [];
   }
 }
 

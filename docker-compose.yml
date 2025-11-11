@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  # Your Next.js app service
+  nextjs-app:
+    # Build from Dockerfile in current directory
+    build:
+      context: .
+      dockerfile: Dockerfile
+    
+    # Container name for easy reference
+    container_name: nextjs-dashboard
+    
+    # Map port 3000 from container to your machine's port 3000
+    # Access app at http://localhost:3000
+    ports:
+      - "3000:3000"
+    
+    # Load environment variables from .env file
+    # These are injected into the running container
+    env_file:
+      - .env
+    
+    # Keep container running even if process exits
+    restart: unless-stopped
+    
+    # Mount your project folder (hot reload during development)
+    # Changes on your machine instantly reflect in container
+    volumes:
+      - .:/app
+      - /app/node_modules  # Don't sync node_modules, keep container's version
+      - /app/.next         # Don't sync build output
+    
+    # Show logs in real time
+    stdin_open: true
+    tty: true
