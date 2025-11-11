@@ -1,6 +1,5 @@
 import NextAuth from 'next-auth';
 import { authConfig } from './auth.config';
-console.log('hhhhhhhhhhhhhhhhhbbb');
 
 export default NextAuth(authConfig).auth;
 
