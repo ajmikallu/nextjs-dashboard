@@ -1,36 +1,43 @@
 # Financial Dashboard Application
 
-A secure, full-stack financial dashboard for managing invoices, featuring protected routes, user authentication, and optimized data handling.
+A secure, full-stack financial dashboard for managing invoices and customers. Includes role-based access, protected routes, and optimized data handling using Next.js App Router and server actions.
 
 ## Key Features
-- User Authentication: Secure login and sign-out using NextAuth.js.
-- Protected Dashboard: Role-based access control for sensitive routes.
-- Invoice Customer Management (CRUD): Create, read, update, delete invoices.
-- Search and Pagination: Efficient querying and navigation using URL search params.
-- Optimized Data Handling: React Server Components and Server Actions.
-- Modern UI: Responsive, accessible interface (Tailwind CSS or similar).
+- User authentication (NextAuth.js)
+- Role-based access control (RBAC)
+- Invoice & customer management (CRUD)
+- Blog posts (simple CMS) with create/edit/delete
+- Search, pagination, and server-side validation
+- React Server Components + Server Actions
+- Tailwind CSS for responsive UI
 
 ## Technology Stack
 
-| Category | Technology | Purpose |
-|---|---|---|
-| Framework | Next.js 14+ | Full-stack React framework (App Router) |
-| Language | JavaScript / TypeScript | Core language (TypeScript recommended) |
-| Database | PostgreSQL | Relational data storage |
-| Authentication | NextAuth.js | Authentication and session management |
-| Styling | Tailwind CSS (or similar) | Utility-first styling |
-| Data Layer | React Server Actions | Server-side data mutation and caching |
+| Category       | Technology                         |
+|---------------:|------------------------------------|
+| Framework      | Next.js (App Router)               |
+| Language       | TypeScript                         |
+| Database       | PostgreSQL                         |
+| Auth          | NextAuth.js                         |
+| Styling        | Tailwind CSS (+ optional plugins)  |
+| Data layer     | Server Actions / postgres client   |
+| Containerization| Docker (optional)                 |
+
+---
 
 ## Getting Started
 
-Prerequisites:
+### Prerequisites
 - Node.js v18.18.0 or later
-- pnpm (Install globally: npm install -g pnpm)
+- pnpm (install globally: `npm install -g pnpm`)
 - Git
 
-Local setup:
+Optional:
+- Docker & Docker Compose (recommended for consistent environments)
 
-1. Clone the repository
+### Local (without Docker)
+
+1. Clone repo
 ```bash
 git clone https://github.com/ajmikallu/nextjs-dashboard.git
 cd nextjs-dashboard
@@ -41,74 +48,128 @@ cd nextjs-dashboard
 pnpm install
 ```
 
-3. Create environment variables
-Create a `.env` file in the project root and set the following variables:
+3. Create `.env` in the project root and set required variables:
+```env
+AUTH_SECRET=your-auth-secret
+NEXTAUTH_URL=http://localhost:3000
+POSTGRES_URL=postgres://user:password@localhost:5432/dashboard
+POSTGRES_PRISMA_URL=postgres://user:password@localhost:5432/dashboard
+POSTGRES_USER=postgres
+POSTGRES_HOST=localhost
+POSTGRES_PASSWORD=your-password
+POSTGRES_DATABASE=dashboard
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+```
 
-| Variable | Description |
-|---|---|
-| AUTH_SECRET | Long secret for signing NextAuth sessions |
-| AUTH_URL | App URL (e.g., http://localhost:3000) |
-| POSTGRES_URL | PostgreSQL connection string |
-| POSTGRES_PRISMA_URL | (If using Prisma) optimized Prisma connection |
-| POSTGRES_URL_NON_POOLING | (Vercel Postgres) non-pooled URL |
-| POSTGRES_USER / POSTGRES_HOST / POSTGRES_PASSWORD / POSTGRES_DATABASE | Optional individual DB credentials |
-
-4. Local database
-- Use a local PostgreSQL instance or Docker.
-- Ensure the DB is running and `.env` connection strings are correct.
-- Seed the database (if available):
+4. Ensure PostgreSQL is running (local or cloud). Seed DB if a seed script is provided:
 ```bash
 pnpm run seed
 ```
 
-5. Run development server
+5. Run dev server
 ```bash
 pnpm run dev
 ```
-App will be available at http://localhost:3000.
+Open: http://localhost:3000
+
+---
+
+### Docker (recommended for teams)
+
+1. Clone repo and create `.env` as above.
+
+2. Build and run
+```bash
+docker-compose build
+docker-compose up
+```
+
+3. Visit:
+```
+http://localhost:3000
+```
+
+Stop containers:
+```bash
+docker-compose down
+```
+
+Useful Docker commands:
+- `docker-compose up -d` — start in background
+- `docker-compose logs -f` — follow logs
+- `docker-compose down --remove-orphans` — stop & cleanup
+- `docker-compose build --no-cache` — rebuild image
+
+---
 
 ## Deployment
 
-Prepare a PostgreSQL database (Vercel Postgres or Supabase) before deployment.
+Prepare a managed Postgres (Vercel Postgres, Supabase, etc.) and set environment variables in your hosting provider.
 
-Option A — Vercel Postgres
-- Create a Postgres instance in Vercel Storage.
-- Link the database to the project.
-- Vercel will provide POSTGRES_URL and related environment variables.
-
-Option B — Supabase
-- Create a Supabase project and copy the connection string (Project Settings > Database > Connection Info).
-- Set POSTGRES_URL in Vercel or `.env`.
-
-Vercel deployment steps:
-1. Import repository in Vercel.
+Vercel:
+1. Import repo into Vercel.
 2. Set Framework Preset to Next.js.
-3. Add required environment variables (AUTH_SECRET, DB connection, etc.).
+3. Add environment variables (AUTH_SECRET, NEXTAUTH_URL, POSTGRES_URL, etc.).
 4. Deploy.
 
-Post-deploy: run seed script against production DB if needed (one-off).
+Note: Docker files are for local development; Vercel deploys without Docker.
 
-## Usage Notes
+---
 
-- Always enforce server-side permission checks for protected routes and API routes.
-- Use role-based checks inside server actions and API handlers.
-- Use client-side `can()` checks only for UI visibility; do not rely on them for security.
+## Environment Variables (reference)
+
+- AUTH_SECRET — random secret for NextAuth
+- NEXTAUTH_URL / AUTH_URL — app URL
+- POSTGRES_URL — full DB connection string
+- POSTGRES_PRISMA_URL — optional pooled connection
+- POSTGRES_* — individual DB parts (optional)
+- NEXT_PUBLIC_SUPABASE_URL / NEXT_PUBLIC_SUPABASE_ANON_KEY — if using Supabase
+
+---
 
 ## Common Commands
 
 - Install: `pnpm install`
-- Seed DB: `pnpm run seed`
 - Dev: `pnpm run dev`
 - Build: `pnpm run build`
-- Start: `pnpm run start`
+- Start (production): `pnpm run start`
+- Seed DB (if provided): `pnpm run seed`
+
+---
 
 ## Troubleshooting
 
-- "User doesn't have permission": verify user's role and role permissions in the database.
-- Session missing role: sign out and sign back in; confirm auth callbacks include role and token contains it.
-- Database connection errors: verify `.env` values and DB availability.
+- "Port 3000 in use": kill process `lsof -ti:3000 | xargs kill -9` or change port.
+- DB connection errors: verify `.env` values and DB availability.
+- Session missing role: sign out and sign back in; ensure auth callback adds role to session.
+- If Docker containers fail: `docker-compose down --remove-orphans`, rebuild, then `docker-compose up`.
+
+---
+
+## Project Structure
+
+```
+nextjs-dashboard/
+├─ app/                 # Next.js app (routes + UI)
+├─ public/              # static assets
+├─ lib/                 # data fetching, actions
+├─ ui/                  # re-usable UI components
+├─ Dockerfile
+├─ docker-compose.yml
+├─ package.json
+├─ tsconfig.json
+└─ README.md
+```
+
+---
 
 ## Notes
+- Project uses TypeScript by default — you can adapt to plain JS.
+- Always validate permissions on server-side; client checks are only for UX.
+- Add Tailwind plugins (e.g. typography) if you use `prose` styles.
 
-- Project assumes TypeScript for type safety but can run in JavaScript.
-- Adjust seeding and DB scripts to match your chosen ORM or client (Prisma, Supabase client, etc.).
+If you want, I can:
+- Add a Docker Compose example
+- Add seed SQL or Prisma schema
+- Tighten README with project-specific commands
